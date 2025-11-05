@@ -2,14 +2,14 @@ var API = "http://127.0.0.1:3000";
 var selectedId = null;     // id when an existing suggestion is chosen
 var lastMatches = [];      // cache for suggestion list
 
-// ========== READ all ==========
+
 function loadFish() {
-  // ⚠️ NOT IN EXAMPLE: XMLHttpRequest used to talk to server
+
   var x = new XMLHttpRequest();
   x.open("GET", API + "/fish", true);
   x.onload = function() {
     if (x.status === 200) {
-    
+
       var list = JSON.parse(x.responseText);
       var table = document.getElementById("fishTable");
       table.innerHTML =
@@ -26,34 +26,22 @@ function loadFish() {
             '<button onclick="editFish(' + list[i].id + ');">Update</button>' +
           "</td>";
       }
+
+      document.getElementById("hideButton").style.display = "inline";
     }
   };
   x.send();
 }
 
-// ========== Type-ahead suggestions ==========
-function suggest() {
-  var nameBox = document.getElementById("fishName");
-  var q = nameBox.value.trim();
-  selectedId = null;
-  document.getElementById("fishSize").value = "";
-  document.getElementById("fishSize").disabled = true;
-
-  if (!q) {
-    hideSuggestions();
-    return;
-  }
+//HIDE table
+function hideFish() {
+  var table = document.getElementById("fishTable");
+  table.innerHTML =
+    '<tr style="background-color: azure;">' +
+    '<th>Fish Name</th><th>Minimum Size to Keep (in inches)</th><th>Actions</th></tr>';
 
   
-  var x = new XMLHttpRequest();
-  x.open("GET", API + "/fish/search?query=" + encodeURIComponent(q), true);
-  x.onload = function() {
-    if (x.status === 200) {
-      lastMatches = JSON.parse(x.responseText) || [];
-      renderSuggestions();
-    }
-  };
-  x.send();
+  document.getElementById("hideButton").style.display = "none";
 }
 
 function renderSuggestions() {
