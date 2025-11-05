@@ -93,7 +93,7 @@ function choose(id) {
   x.send();
 }
 
-// ========== Add or Update (decides based on selectedId) ==========
+//Add or Update (decides based on selectedId)
 function saveFish() {
   var name = (document.getElementById("fishName").value || "").trim();
 
@@ -143,9 +143,8 @@ function saveFish() {
   }
 }
 
-// ========== Delete & Edit buttons ==========
+//Delete & Edit buttons
 function delFish(id) {
-  // ⚠️ NOT IN EXAMPLE: XMLHttpRequest
   var x = new XMLHttpRequest();
   x.open("DELETE", API + "/fish/delete?id=" + encodeURIComponent(id), true);
   x.onload = function() {
