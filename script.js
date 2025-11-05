@@ -44,6 +44,29 @@ function hideFish() {
   document.getElementById("hideButton").style.display = "none";
 }
 
+function suggest() {
+  var nameBox = document.getElementById("fishName");
+  var q = nameBox.value.trim();
+  selectedId = null;
+  document.getElementById("fishSize").value = "";
+  document.getElementById("fishSize").disabled = true;
+
+  if (!q) {
+    hideSuggestions();
+    return;
+  }
+
+  var x = new XMLHttpRequest();
+  x.open("GET", API + "/fish/search?query=" + encodeURIComponent(q), true);
+  x.onload = function() {
+    if (x.status === 200) {
+      lastMatches = JSON.parse(x.responseText) || [];
+      renderSuggestions();
+    }
+  };
+  x.send();
+}
+
 function renderSuggestions() {
   var box = document.getElementById("suggestions");
   var html = "";
