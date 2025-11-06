@@ -75,7 +75,7 @@ function renderSuggestions() {
   } else {
     for (var i = 0; i < lastMatches.length; i++) {
       html += '<div style="padding:6px; cursor:pointer;" onclick="choose(' +
-              lastMatches[i].id + ');">' + lastMatches[i].name + '</div>';
+      lastMatches[i].id + ');">' + lastMatches[i].name + '</div>';
     }
   }
   box.innerHTML = html;
@@ -131,7 +131,7 @@ function saveFish() {
 
     var updateRequest = new XMLHttpRequest();
     updateRequest.open("PUT", API + "/fish/update?id=" + encodeURIComponent(selectedId) +
-                                "&size=" + encodeURIComponent(newSize), true);
+   "&size=" + encodeURIComponent(newSize), true);
     updateRequest.onload = function() {
       if (updateRequest.status === 200) {
         loadFish();
@@ -151,7 +151,7 @@ function saveFish() {
 
     var addRequest = new XMLHttpRequest();
     addRequest.open("POST", API + "/fish/add?name=" + encodeURIComponent(name) +
-                               "&size=" + encodeURIComponent(size), true);
+   "&size=" + encodeURIComponent(size), true);
     addRequest.onload = function() {
       if (addRequest.status === 200) {
         loadFish();
@@ -185,12 +185,12 @@ function editFish(id) {
       for (var i = 0; i < list.length; i++) if (String(list[i].id) === String(id)) item = list[i];
 
       var newSize = prompt("Enter new minimum size (in inches) for " + (item ? item.name : "fish") + ":",
-                           item ? item.minSizeInInches : "");
+tem ? item.minSizeInInches : "");
       if (newSize === null || newSize === "") return;
 
       var updateRequest = new XMLHttpRequest();
       updateRequest.open("PUT", API + "/fish/update?id=" + encodeURIComponent(id) +
-                                  "&size=" + encodeURIComponent(newSize), true);
+   "&size=" + encodeURIComponent(newSize), true);
       updateRequest.onload = function() {
         if (updateRequest.status === 200) loadFish();
       };
