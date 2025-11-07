@@ -3,7 +3,7 @@ const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
-//In-memory data (server keeps sizes in inches) ---
+//server keeps names and sizes in inches
 let fishData = [
   { id: 1, name: "Amberjack, Greater", minSizeInInches: 34 },
   { id: 2, name: "Barracuda, Great", minSizeInInches: 0 },
@@ -82,12 +82,12 @@ const server = http.createServer((req, res) => {
   const path = parsed.pathname;
   const qs = parsed.searchParams;
 
-  //READ: list all fish
+  //list all fish
   if (path === '/fish' && method === 'GET') {
     return sendJSON(res, fishData);
   }
 
-  //READ: search suggestions
+  //search suggestions
   if (path === '/fish/search' && method === 'GET') {
     const q = (qs.get('query') || '').trim().toLowerCase();
     const matches = q
@@ -139,7 +139,7 @@ const server = http.createServer((req, res) => {
     return sendJSON(res, { message: 'Fish deleted' });
   }
 
-  // Fallback (in example style)
+  // Fallback
   res.setHeader('Content-type', 'text/plain');
   res.write(`I don't recognize that request.`);
   res.end();

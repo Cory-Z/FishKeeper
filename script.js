@@ -53,7 +53,8 @@ function suggest() {
     hideSuggestions();
     return;
   }
-
+// Sends GET request to server to search for fish names that match user's input
+// Server responds with list of matching fish, which saves into lastMatches and show in the dropdown
   var searchRequest = new XMLHttpRequest();
   searchRequest.open("GET", API + "/fish/search?query=" + encodeURIComponent(q), true);
   searchRequest.onload = function() {
@@ -148,7 +149,8 @@ function saveFish() {
       return;
     }
     var size = sizeBox.value;
-
+// Sends POST request to the server to add a new fish with given name and minimum size.
+// After server responds, reloads fish list and resets input fields.
     var addRequest = new XMLHttpRequest();
     addRequest.open("POST", API + "/fish/add?name=" + encodeURIComponent(name) +
    "&size=" + encodeURIComponent(size), true);
@@ -187,7 +189,8 @@ function editFish(id) {
       var newSize = prompt("Enter new minimum size (in inches) for " + (item ? item.name : "fish") + ":",
 tem ? item.minSizeInInches : "");
       if (newSize === null || newSize === "") return;
-
+// Sends PUT request to update minimum size of fish by its ID.
+// If server responds, reloads fish list to show updated size.
       var updateRequest = new XMLHttpRequest();
       updateRequest.open("PUT", API + "/fish/update?id=" + encodeURIComponent(id) +
    "&size=" + encodeURIComponent(newSize), true);
